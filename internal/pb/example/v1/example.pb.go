@@ -21,30 +21,87 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-type Test struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Query         string                 `protobuf:"bytes,1,opt,name=query,proto3" json:"query,omitempty"`
-	PageNumber    int32                  `protobuf:"varint,2,opt,name=page_number,json=pageNumber,proto3" json:"page_number,omitempty"`
-	ResultPerPage int32                  `protobuf:"varint,3,opt,name=result_per_page,json=resultPerPage,proto3" json:"result_per_page,omitempty"`
-	Tickers       []*Ticker              `protobuf:"bytes,4,rep,name=tickers,proto3" json:"tickers,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
+type DriverRole int32
+
+const (
+	DriverRole_DRIVER_ROLE_UNSPECIFIED DriverRole = 0
+	DriverRole_DRIVER_ROLE_PRIMARY     DriverRole = 1
+	DriverRole_DRIVER_ROLE_SECONDARY   DriverRole = 2
+	DriverRole_DRIVER_ROLE_LISTED      DriverRole = 3
+)
+
+// Enum value maps for DriverRole.
+var (
+	DriverRole_name = map[int32]string{
+		0: "DRIVER_ROLE_UNSPECIFIED",
+		1: "DRIVER_ROLE_PRIMARY",
+		2: "DRIVER_ROLE_SECONDARY",
+		3: "DRIVER_ROLE_LISTED",
+	}
+	DriverRole_value = map[string]int32{
+		"DRIVER_ROLE_UNSPECIFIED": 0,
+		"DRIVER_ROLE_PRIMARY":     1,
+		"DRIVER_ROLE_SECONDARY":   2,
+		"DRIVER_ROLE_LISTED":      3,
+	}
+)
+
+func (x DriverRole) Enum() *DriverRole {
+	p := new(DriverRole)
+	*p = x
+	return p
 }
 
-func (x *Test) Reset() {
-	*x = Test{}
+func (x DriverRole) String() string {
+	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
+}
+
+func (DriverRole) Descriptor() protoreflect.EnumDescriptor {
+	return file_example_v1_example_proto_enumTypes[0].Descriptor()
+}
+
+func (DriverRole) Type() protoreflect.EnumType {
+	return &file_example_v1_example_proto_enumTypes[0]
+}
+
+func (x DriverRole) Number() protoreflect.EnumNumber {
+	return protoreflect.EnumNumber(x)
+}
+
+// Deprecated: Use DriverRole.Descriptor instead.
+func (DriverRole) EnumDescriptor() ([]byte, []int) {
+	return file_example_v1_example_proto_rawDescGZIP(), []int{0}
+}
+
+type Policy struct {
+	state          protoimpl.MessageState `protogen:"open.v1"`
+	PolicyNumber   string                 `protobuf:"bytes,1,opt,name=policy_number,json=policyNumber,proto3" json:"policy_number,omitempty"`
+	RevisionNumber int32                  `protobuf:"varint,2,opt,name=revision_number,json=revisionNumber,proto3" json:"revision_number,omitempty"`
+	CustomerId     string                 `protobuf:"bytes,3,opt,name=customer_id,json=customerId,proto3" json:"customer_id,omitempty"`
+	Drivers        []*Driver              `protobuf:"bytes,4,rep,name=drivers,proto3" json:"drivers,omitempty"`
+	StateCode      string                 `protobuf:"bytes,5,opt,name=state_code,json=stateCode,proto3" json:"state_code,omitempty"`
+	Vehicles       []*Vehicle             `protobuf:"bytes,6,rep,name=vehicles,proto3" json:"vehicles,omitempty"`
+	Premium        float32                `protobuf:"fixed32,7,opt,name=premium,proto3" json:"premium,omitempty"`
+	AgentId        string                 `protobuf:"bytes,8,opt,name=agent_id,json=agentId,proto3" json:"agent_id,omitempty"`
+	Coverages      []*CoverageEntry       `protobuf:"bytes,9,rep,name=coverages,proto3" json:"coverages,omitempty"`
+	unknownFields  protoimpl.UnknownFields
+	sizeCache      protoimpl.SizeCache
+}
+
+func (x *Policy) Reset() {
+	*x = Policy{}
 	mi := &file_example_v1_example_proto_msgTypes[0]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *Test) String() string {
+func (x *Policy) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*Test) ProtoMessage() {}
+func (*Policy) ProtoMessage() {}
 
-func (x *Test) ProtoReflect() protoreflect.Message {
+func (x *Policy) ProtoReflect() protoreflect.Message {
 	mi := &file_example_v1_example_proto_msgTypes[0]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -56,61 +113,96 @@ func (x *Test) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use Test.ProtoReflect.Descriptor instead.
-func (*Test) Descriptor() ([]byte, []int) {
+// Deprecated: Use Policy.ProtoReflect.Descriptor instead.
+func (*Policy) Descriptor() ([]byte, []int) {
 	return file_example_v1_example_proto_rawDescGZIP(), []int{0}
 }
 
-func (x *Test) GetQuery() string {
+func (x *Policy) GetPolicyNumber() string {
 	if x != nil {
-		return x.Query
+		return x.PolicyNumber
 	}
 	return ""
 }
 
-func (x *Test) GetPageNumber() int32 {
+func (x *Policy) GetRevisionNumber() int32 {
 	if x != nil {
-		return x.PageNumber
+		return x.RevisionNumber
 	}
 	return 0
 }
 
-func (x *Test) GetResultPerPage() int32 {
+func (x *Policy) GetCustomerId() string {
 	if x != nil {
-		return x.ResultPerPage
+		return x.CustomerId
 	}
-	return 0
+	return ""
 }
 
-func (x *Test) GetTickers() []*Ticker {
+func (x *Policy) GetDrivers() []*Driver {
 	if x != nil {
-		return x.Tickers
+		return x.Drivers
 	}
 	return nil
 }
 
-type Ticker struct {
+func (x *Policy) GetStateCode() string {
+	if x != nil {
+		return x.StateCode
+	}
+	return ""
+}
+
+func (x *Policy) GetVehicles() []*Vehicle {
+	if x != nil {
+		return x.Vehicles
+	}
+	return nil
+}
+
+func (x *Policy) GetPremium() float32 {
+	if x != nil {
+		return x.Premium
+	}
+	return 0
+}
+
+func (x *Policy) GetAgentId() string {
+	if x != nil {
+		return x.AgentId
+	}
+	return ""
+}
+
+func (x *Policy) GetCoverages() []*CoverageEntry {
+	if x != nil {
+		return x.Coverages
+	}
+	return nil
+}
+
+type Driver struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Name          string                 `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
-	Value         float32                `protobuf:"fixed32,2,opt,name=value,proto3" json:"value,omitempty"`
+	CustomerId    string                 `protobuf:"bytes,1,opt,name=customer_id,json=customerId,proto3" json:"customer_id,omitempty"`
+	Role          DriverRole             `protobuf:"varint,2,opt,name=role,proto3,enum=example.v1.DriverRole" json:"role,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *Ticker) Reset() {
-	*x = Ticker{}
+func (x *Driver) Reset() {
+	*x = Driver{}
 	mi := &file_example_v1_example_proto_msgTypes[1]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *Ticker) String() string {
+func (x *Driver) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*Ticker) ProtoMessage() {}
+func (*Driver) ProtoMessage() {}
 
-func (x *Ticker) ProtoReflect() protoreflect.Message {
+func (x *Driver) ProtoReflect() protoreflect.Message {
 	mi := &file_example_v1_example_proto_msgTypes[1]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -122,21 +214,157 @@ func (x *Ticker) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use Ticker.ProtoReflect.Descriptor instead.
-func (*Ticker) Descriptor() ([]byte, []int) {
+// Deprecated: Use Driver.ProtoReflect.Descriptor instead.
+func (*Driver) Descriptor() ([]byte, []int) {
 	return file_example_v1_example_proto_rawDescGZIP(), []int{1}
 }
 
-func (x *Ticker) GetName() string {
+func (x *Driver) GetCustomerId() string {
 	if x != nil {
-		return x.Name
+		return x.CustomerId
 	}
 	return ""
 }
 
-func (x *Ticker) GetValue() float32 {
+func (x *Driver) GetRole() DriverRole {
 	if x != nil {
-		return x.Value
+		return x.Role
+	}
+	return DriverRole_DRIVER_ROLE_UNSPECIFIED
+}
+
+type Vehicle struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Vin           string                 `protobuf:"bytes,1,opt,name=vin,proto3" json:"vin,omitempty"`
+	Make          string                 `protobuf:"bytes,2,opt,name=make,proto3" json:"make,omitempty"`
+	Model         string                 `protobuf:"bytes,3,opt,name=model,proto3" json:"model,omitempty"`
+	Year          int64                  `protobuf:"varint,4,opt,name=year,proto3" json:"year,omitempty"`
+	YearlyMileage int64                  `protobuf:"varint,5,opt,name=yearly_mileage,json=yearlyMileage,proto3" json:"yearly_mileage,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *Vehicle) Reset() {
+	*x = Vehicle{}
+	mi := &file_example_v1_example_proto_msgTypes[2]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *Vehicle) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*Vehicle) ProtoMessage() {}
+
+func (x *Vehicle) ProtoReflect() protoreflect.Message {
+	mi := &file_example_v1_example_proto_msgTypes[2]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use Vehicle.ProtoReflect.Descriptor instead.
+func (*Vehicle) Descriptor() ([]byte, []int) {
+	return file_example_v1_example_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *Vehicle) GetVin() string {
+	if x != nil {
+		return x.Vin
+	}
+	return ""
+}
+
+func (x *Vehicle) GetMake() string {
+	if x != nil {
+		return x.Make
+	}
+	return ""
+}
+
+func (x *Vehicle) GetModel() string {
+	if x != nil {
+		return x.Model
+	}
+	return ""
+}
+
+func (x *Vehicle) GetYear() int64 {
+	if x != nil {
+		return x.Year
+	}
+	return 0
+}
+
+func (x *Vehicle) GetYearlyMileage() int64 {
+	if x != nil {
+		return x.YearlyMileage
+	}
+	return 0
+}
+
+type CoverageEntry struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	CoverageId    string                 `protobuf:"bytes,1,opt,name=coverage_id,json=coverageId,proto3" json:"coverage_id,omitempty"`
+	OptionId      string                 `protobuf:"bytes,2,opt,name=option_id,json=optionId,proto3" json:"option_id,omitempty"`
+	LimitAmount   float32                `protobuf:"fixed32,3,opt,name=limit_amount,json=limitAmount,proto3" json:"limit_amount,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *CoverageEntry) Reset() {
+	*x = CoverageEntry{}
+	mi := &file_example_v1_example_proto_msgTypes[3]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CoverageEntry) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CoverageEntry) ProtoMessage() {}
+
+func (x *CoverageEntry) ProtoReflect() protoreflect.Message {
+	mi := &file_example_v1_example_proto_msgTypes[3]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CoverageEntry.ProtoReflect.Descriptor instead.
+func (*CoverageEntry) Descriptor() ([]byte, []int) {
+	return file_example_v1_example_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *CoverageEntry) GetCoverageId() string {
+	if x != nil {
+		return x.CoverageId
+	}
+	return ""
+}
+
+func (x *CoverageEntry) GetOptionId() string {
+	if x != nil {
+		return x.OptionId
+	}
+	return ""
+}
+
+func (x *CoverageEntry) GetLimitAmount() float32 {
+	if x != nil {
+		return x.LimitAmount
 	}
 	return 0
 }
@@ -146,16 +374,40 @@ var File_example_v1_example_proto protoreflect.FileDescriptor
 const file_example_v1_example_proto_rawDesc = "" +
 	"\n" +
 	"\x18example/v1/example.proto\x12\n" +
-	"example.v1\"\x93\x01\n" +
-	"\x04Test\x12\x14\n" +
-	"\x05query\x18\x01 \x01(\tR\x05query\x12\x1f\n" +
-	"\vpage_number\x18\x02 \x01(\x05R\n" +
-	"pageNumber\x12&\n" +
-	"\x0fresult_per_page\x18\x03 \x01(\x05R\rresultPerPage\x12,\n" +
-	"\atickers\x18\x04 \x03(\v2\x12.example.v1.TickerR\atickers\"2\n" +
-	"\x06Ticker\x12\x12\n" +
-	"\x04name\x18\x01 \x01(\tR\x04name\x12\x14\n" +
-	"\x05value\x18\x02 \x01(\x02R\x05valueB\xc0\x01\n" +
+	"example.v1\"\xe3\x02\n" +
+	"\x06Policy\x12#\n" +
+	"\rpolicy_number\x18\x01 \x01(\tR\fpolicyNumber\x12'\n" +
+	"\x0frevision_number\x18\x02 \x01(\x05R\x0erevisionNumber\x12\x1f\n" +
+	"\vcustomer_id\x18\x03 \x01(\tR\n" +
+	"customerId\x12,\n" +
+	"\adrivers\x18\x04 \x03(\v2\x12.example.v1.DriverR\adrivers\x12\x1d\n" +
+	"\n" +
+	"state_code\x18\x05 \x01(\tR\tstateCode\x12/\n" +
+	"\bvehicles\x18\x06 \x03(\v2\x13.example.v1.VehicleR\bvehicles\x12\x18\n" +
+	"\apremium\x18\a \x01(\x02R\apremium\x12\x19\n" +
+	"\bagent_id\x18\b \x01(\tR\aagentId\x127\n" +
+	"\tcoverages\x18\t \x03(\v2\x19.example.v1.CoverageEntryR\tcoverages\"U\n" +
+	"\x06Driver\x12\x1f\n" +
+	"\vcustomer_id\x18\x01 \x01(\tR\n" +
+	"customerId\x12*\n" +
+	"\x04role\x18\x02 \x01(\x0e2\x16.example.v1.DriverRoleR\x04role\"\x80\x01\n" +
+	"\aVehicle\x12\x10\n" +
+	"\x03vin\x18\x01 \x01(\tR\x03vin\x12\x12\n" +
+	"\x04make\x18\x02 \x01(\tR\x04make\x12\x14\n" +
+	"\x05model\x18\x03 \x01(\tR\x05model\x12\x12\n" +
+	"\x04year\x18\x04 \x01(\x03R\x04year\x12%\n" +
+	"\x0eyearly_mileage\x18\x05 \x01(\x03R\ryearlyMileage\"p\n" +
+	"\rCoverageEntry\x12\x1f\n" +
+	"\vcoverage_id\x18\x01 \x01(\tR\n" +
+	"coverageId\x12\x1b\n" +
+	"\toption_id\x18\x02 \x01(\tR\boptionId\x12!\n" +
+	"\flimit_amount\x18\x03 \x01(\x02R\vlimitAmount*u\n" +
+	"\n" +
+	"DriverRole\x12\x1b\n" +
+	"\x17DRIVER_ROLE_UNSPECIFIED\x10\x00\x12\x17\n" +
+	"\x13DRIVER_ROLE_PRIMARY\x10\x01\x12\x19\n" +
+	"\x15DRIVER_ROLE_SECONDARY\x10\x02\x12\x16\n" +
+	"\x12DRIVER_ROLE_LISTED\x10\x03B\xc0\x01\n" +
 	"\x0ecom.example.v1B\fExampleProtoP\x01ZWgithub.com/charlieparkes/protobuf-json-size-comparison/internal/pb/example/v1;examplev1\xa2\x02\x03EXX\xaa\x02\n" +
 	"Example.V1\xca\x02\n" +
 	"Example\\V1\xe2\x02\x16Example\\V1\\GPBMetadata\xea\x02\vExample::V1b\x06proto3"
@@ -172,18 +424,25 @@ func file_example_v1_example_proto_rawDescGZIP() []byte {
 	return file_example_v1_example_proto_rawDescData
 }
 
-var file_example_v1_example_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
+var file_example_v1_example_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
+var file_example_v1_example_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
 var file_example_v1_example_proto_goTypes = []any{
-	(*Test)(nil),   // 0: example.v1.Test
-	(*Ticker)(nil), // 1: example.v1.Ticker
+	(DriverRole)(0),       // 0: example.v1.DriverRole
+	(*Policy)(nil),        // 1: example.v1.Policy
+	(*Driver)(nil),        // 2: example.v1.Driver
+	(*Vehicle)(nil),       // 3: example.v1.Vehicle
+	(*CoverageEntry)(nil), // 4: example.v1.CoverageEntry
 }
 var file_example_v1_example_proto_depIdxs = []int32{
-	1, // 0: example.v1.Test.tickers:type_name -> example.v1.Ticker
-	1, // [1:1] is the sub-list for method output_type
-	1, // [1:1] is the sub-list for method input_type
-	1, // [1:1] is the sub-list for extension type_name
-	1, // [1:1] is the sub-list for extension extendee
-	0, // [0:1] is the sub-list for field type_name
+	2, // 0: example.v1.Policy.drivers:type_name -> example.v1.Driver
+	3, // 1: example.v1.Policy.vehicles:type_name -> example.v1.Vehicle
+	4, // 2: example.v1.Policy.coverages:type_name -> example.v1.CoverageEntry
+	0, // 3: example.v1.Driver.role:type_name -> example.v1.DriverRole
+	4, // [4:4] is the sub-list for method output_type
+	4, // [4:4] is the sub-list for method input_type
+	4, // [4:4] is the sub-list for extension type_name
+	4, // [4:4] is the sub-list for extension extendee
+	0, // [0:4] is the sub-list for field type_name
 }
 
 func init() { file_example_v1_example_proto_init() }
@@ -196,13 +455,14 @@ func file_example_v1_example_proto_init() {
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_example_v1_example_proto_rawDesc), len(file_example_v1_example_proto_rawDesc)),
-			NumEnums:      0,
-			NumMessages:   2,
+			NumEnums:      1,
+			NumMessages:   4,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
 		GoTypes:           file_example_v1_example_proto_goTypes,
 		DependencyIndexes: file_example_v1_example_proto_depIdxs,
+		EnumInfos:         file_example_v1_example_proto_enumTypes,
 		MessageInfos:      file_example_v1_example_proto_msgTypes,
 	}.Build()
 	File_example_v1_example_proto = out.File

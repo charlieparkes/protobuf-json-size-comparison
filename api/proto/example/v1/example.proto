@@ -2,14 +2,40 @@ syntax = "proto3";
 
 package example.v1;
 
-message Test {
-  string query = 1;
-  int32 page_number = 2;
-  int32 result_per_page = 3;
-  repeated Ticker tickers = 4;
+message Policy {
+  string policy_number = 1;
+  int32 revision_number = 2;
+  string customer_id = 3;
+  repeated Driver drivers = 4;
+  string state_code = 5;
+  repeated Vehicle vehicles = 6;
+  float premium = 7;
+  string agent_id = 8;
+  repeated CoverageEntry coverages = 9;
 }
 
-message Ticker {
-  string name = 1;
-  float value = 2;
+message Driver {
+  string customer_id = 1;
+  DriverRole role = 2;
+}
+
+message Vehicle {
+  string vin = 1;
+  string make = 2;
+  string model = 3;
+  int64 year = 4;
+  int64 yearly_mileage = 5;
+}
+
+message CoverageEntry {
+  string coverage_id = 1;
+  string option_id = 2;
+  float limit_amount = 3;
+}
+
+enum DriverRole {
+  DRIVER_ROLE_UNSPECIFIED = 0;
+  DRIVER_ROLE_PRIMARY = 1;
+  DRIVER_ROLE_SECONDARY = 2;
+  DRIVER_ROLE_LISTED = 3;
 }

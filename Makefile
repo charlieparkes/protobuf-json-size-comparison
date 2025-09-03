@@ -4,4 +4,4 @@ include shared.mk
 
 .PHONY: run
 run:
-	go run main.go
+	go run cmd/comparison/main.go
