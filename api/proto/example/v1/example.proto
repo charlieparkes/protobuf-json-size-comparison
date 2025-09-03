@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package sample;
+package example.v1;
 
 message Test {
   string query = 1;
@@ -10,6 +10,6 @@ message Test {
 }
 
 message Ticker {
-  string name =1;
-  float value =2;
+  string name = 1;
+  float value = 2;
 }
